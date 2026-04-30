@@ -1,97 +1,98 @@
-// squadly — waitlist landing page script
+// squadly — landing page interactions
 
-// ------------------------------------------------------------
-// CONFIG — à brancher sur ton backend de waitlist le moment venu
-//   - Beehiiv : https://www.beehiiv.com (recommandé : free tier 2500 subs)
-//   - Tally :   https://tally.so       (alternative gratuite)
-//   - Resend + simple Cloudflare Worker (custom)
-// ------------------------------------------------------------
-const WAITLIST_ENDPOINT = ""; // ← REMPLACE avec l'endpoint Beehiiv ou Tally
-const COUNTER_KEY = "squadly_signup_count_local"; // dev-only fallback
+// ============================================================
+// CONFIG
+// ============================================================
+const WAITLIST_ENDPOINT = ""; // À brancher Beehiiv quand prêt
+const COUNTER_KEY = "squadly_signup_count_local";
 
-// ------------------------------------------------------------
-// SIGNUP HANDLER
-// ------------------------------------------------------------
-const form = document.getElementById("signup");
-const msgOk = document.getElementById("msg-ok");
-const msgErr = document.getElementById("msg-err");
-const counterEl = document.getElementById("counter");
-
-if (form) {
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    msgOk.hidden = true; msgErr.hidden = true;
-
-    const data = new FormData(form);
-    const payload = Object.fromEntries(data.entries());
-
-    // Validation rapide côté client
-    if (!payload.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email)) {
-      msgErr.textContent = "Email invalide.";
-      msgErr.hidden = false;
-      return;
-    }
-
-    const btn = form.querySelector('button[type="submit"]');
-    btn.disabled = true;
-    btn.textContent = "Inscription...";
-
-    try {
-      if (WAITLIST_ENDPOINT) {
-        const res = await fetch(WAITLIST_ENDPOINT, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        });
-        if (!res.ok) throw new Error("Server error");
-      } else {
-        // Mode dev : log local. À remplacer en prod.
-        console.log("[squadly] Signup payload (no backend configured):", payload);
-        await new Promise(r => setTimeout(r, 600));
+// ============================================================
+// REVEAL ON SCROLL (IntersectionObserver)
+// ============================================================
+const reveal = (selector, threshold = 0.15) => {
+  const items = document.querySelectorAll(selector);
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const delay = e.target.dataset.delay || 0;
+        setTimeout(() => e.target.classList.add("is-visible"), parseInt(delay));
+        io.unobserve(e.target);
       }
+    });
+  }, { threshold });
+  items.forEach(el => io.observe(el));
+};
+reveal(".reveal", 0.05);
+reveal(".scroll-section", 0.08);
 
-      // Track conversion
-      if (window.posthog) window.posthog.capture("waitlist_signup", payload);
-      if (window.plausible) window.plausible("WaitlistSignup");
-
-      // Compteur local pour démo (à remplacer par appel API en prod)
-      const current = parseInt(localStorage.getItem(COUNTER_KEY) || "0", 10);
-      localStorage.setItem(COUNTER_KEY, String(current + 1));
-      updateCounter();
-
-      msgOk.hidden = false;
-      form.reset();
-      btn.textContent = "✓ Inscrit";
-
-      // Reset bouton après 3s
-      setTimeout(() => { btn.disabled = false; btn.textContent = "Je veux la beta"; }, 3000);
-
-    } catch (err) {
-      msgErr.textContent = "Petit souci, réessaie ?";
-      msgErr.hidden = false;
-      btn.disabled = false;
-      btn.textContent = "Je veux la beta";
-    }
+// Hero reveals always trigger on load (above the fold)
+window.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(".hero .reveal").forEach((el, i) => {
+    setTimeout(() => el.classList.add("is-visible"), 80 * (i + 1));
   });
-}
+});
 
-// ------------------------------------------------------------
-// COUNTER (à brancher sur backend en prod — ici fallback local)
-// ------------------------------------------------------------
-function updateCounter() {
-  if (!counterEl) return;
-  // En prod : fetch GET /waitlist/count → mettre à jour
-  const local = parseInt(localStorage.getItem(COUNTER_KEY) || "0", 10);
-  // Affichage : ajoute un baseline pour donner de la crédibilité
-  // (à remplacer par vrai compteur backend dès que dispo)
-  const display = local; // ou : 127 + local pour amorcer
-  counterEl.textContent = display.toLocaleString("fr-FR");
-}
-updateCounter();
+// ============================================================
+// NAV SCROLL STATE
+// ============================================================
+const nav = document.querySelector(".nav");
+const onScroll = () => {
+  if (window.scrollY > 20) nav.classList.add("scrolled");
+  else nav.classList.remove("scrolled");
+};
+window.addEventListener("scroll", onScroll, { passive: true });
+onScroll();
 
-// ------------------------------------------------------------
-// SMOOTH SCROLL FALLBACK pour navigateurs sans CSS scroll-behavior
-// ------------------------------------------------------------
+// ============================================================
+// MAGNETIC BUTTONS (subtle pull toward cursor)
+// ============================================================
+document.querySelectorAll(".btn-magnetic").forEach(btn => {
+  let rafId = null;
+  btn.addEventListener("mousemove", (e) => {
+    const r = btn.getBoundingClientRect();
+    const x = e.clientX - r.left - r.width / 2;
+    const y = e.clientY - r.top - r.height / 2;
+    if (rafId) cancelAnimationFrame(rafId);
+    rafId = requestAnimationFrame(() => {
+      btn.style.transform = `translate(${x * 0.18}px, ${y * 0.22}px)`;
+      btn.style.setProperty("--mx", `${(e.clientX - r.left) / r.width * 100}%`);
+      btn.style.setProperty("--my", `${(e.clientY - r.top) / r.height * 100}%`);
+    });
+  });
+  btn.addEventListener("mouseleave", () => {
+    btn.style.transform = "";
+  });
+});
+
+// ============================================================
+// 3D TILT on hover (cards + phone)
+// ============================================================
+document.querySelectorAll("[data-tilt]").forEach(el => {
+  const max = el.classList.contains("phone-shell") ? 6 : 9;
+  let rafId = null;
+  el.addEventListener("mousemove", (e) => {
+    const r = el.getBoundingClientRect();
+    const px = (e.clientX - r.left) / r.width;
+    const py = (e.clientY - r.top) / r.height;
+    const rx = ((py - 0.5) * -2 * max).toFixed(2);
+    const ry = ((px - 0.5) * 2 * max).toFixed(2);
+    if (rafId) cancelAnimationFrame(rafId);
+    rafId = requestAnimationFrame(() => {
+      const baseRy = el.classList.contains("phone-shell") ? -3 : 0;
+      const baseRx = el.classList.contains("phone-shell") ? 4 : 0;
+      el.style.transform = `perspective(1200px) rotateX(${baseRx + rx}deg) rotateY(${baseRy + ry * 1}deg)`;
+      el.style.setProperty("--mx", `${px * 100}%`);
+      el.style.setProperty("--my", `${py * 100}%`);
+    });
+  });
+  el.addEventListener("mouseleave", () => {
+    el.style.transform = "";
+  });
+});
+
+// ============================================================
+// SMOOTH SCROLL fallback
+// ============================================================
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener("click", e => {
     const id = a.getAttribute("href");
@@ -105,11 +106,119 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 });
 
-// ------------------------------------------------------------
-// PostHog stub (à remplacer par snippet officiel)
-// ------------------------------------------------------------
-// Pour activer : https://posthog.com/docs/getting-started/install
-// 1. Crée un compte gratuit sur posthog.com
-// 2. Récupère ton project key
-// 3. Remplace ce stub par le snippet officiel <script>
+// ============================================================
+// WAITLIST FORM
+// ============================================================
+const form = document.getElementById("signup");
+const msgOk = document.getElementById("msg-ok");
+const msgErr = document.getElementById("msg-err");
+
+if (form) {
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    msgOk.hidden = true; msgErr.hidden = true;
+
+    const data = new FormData(form);
+    const payload = Object.fromEntries(data.entries());
+
+    if (!payload.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email)) {
+      msgErr.textContent = "Email invalide.";
+      msgErr.hidden = false;
+      return;
+    }
+
+    const btn = form.querySelector('button[type="submit"]');
+    const btnSpan = btn.querySelector("span");
+    const originalText = btnSpan.textContent;
+    btn.disabled = true;
+    btnSpan.textContent = "Inscription...";
+
+    try {
+      if (WAITLIST_ENDPOINT) {
+        const res = await fetch(WAITLIST_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+        if (!res.ok) throw new Error("Server error");
+      } else {
+        // Mode dev — log local. À remplacer en prod.
+        console.log("[squadly] Signup payload (no backend configured):", payload);
+        await new Promise(r => setTimeout(r, 600));
+      }
+
+      if (window.posthog) window.posthog.capture("waitlist_signup", payload);
+      if (window.plausible) window.plausible("WaitlistSignup");
+
+      const current = parseInt(localStorage.getItem(COUNTER_KEY) || "0", 10);
+      localStorage.setItem(COUNTER_KEY, String(current + 1));
+
+      msgOk.hidden = false;
+      form.reset();
+      btnSpan.textContent = "✓ Inscrit";
+      // Confetti vibe — light particle burst
+      burst(btn);
+
+      setTimeout(() => { btn.disabled = false; btnSpan.textContent = originalText; }, 3500);
+
+    } catch (err) {
+      msgErr.textContent = "Petit souci, réessaie ?";
+      msgErr.hidden = false;
+      btn.disabled = false;
+      btnSpan.textContent = originalText;
+    }
+  });
+}
+
+// ============================================================
+// MICRO PARTICLE BURST on signup success
+// ============================================================
+function burst(anchor) {
+  const r = anchor.getBoundingClientRect();
+  const cx = r.left + r.width / 2;
+  const cy = r.top + r.height / 2;
+  const colors = ["#6B4EFF", "#00FF88", "#FF6B9D", "#B19CFF"];
+  for (let i = 0; i < 18; i++) {
+    const p = document.createElement("div");
+    p.style.cssText = `
+      position: fixed; top: ${cy}px; left: ${cx}px;
+      width: 8px; height: 8px;
+      background: ${colors[i % colors.length]};
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transition: transform 1s cubic-bezier(0.2, 0.7, 0.3, 1), opacity 1s;
+    `;
+    document.body.appendChild(p);
+    requestAnimationFrame(() => {
+      const angle = (Math.PI * 2 * i) / 18 + Math.random() * 0.5;
+      const dist = 70 + Math.random() * 80;
+      p.style.transform = `translate(${Math.cos(angle) * dist}px, ${Math.sin(angle) * dist}px) scale(0.2)`;
+      p.style.opacity = "0";
+    });
+    setTimeout(() => p.remove(), 1200);
+  }
+}
+
+// ============================================================
+// SUBTLE PARALLAX on aurora blobs (mouse-based)
+// ============================================================
+const blobs = document.querySelectorAll(".blob");
+let mouseX = 0, mouseY = 0;
+let targetX = 0, targetY = 0;
+window.addEventListener("mousemove", (e) => {
+  mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+  mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+});
+function tick() {
+  targetX += (mouseX - targetX) * 0.04;
+  targetY += (mouseY - targetY) * 0.04;
+  blobs.forEach((b, i) => {
+    const factor = (i + 1) * 8;
+    b.style.translate = `${targetX * factor}px ${targetY * factor}px`;
+  });
+  requestAnimationFrame(tick);
+}
+if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) tick();
+
 console.log("[squadly] Landing chargée. Branche WAITLIST_ENDPOINT et PostHog avant prod.");

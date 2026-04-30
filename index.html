@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>squadly — trouve ton duo Valorant en 2 min, vérifié par rang</title>
-<meta name="description" content="Marre des coéquipiers toxiques en ranked ? Squadly te match avec un duo vérifié, à ton rang, sous 2 minutes. Récap automatique de votre meilleur moment après chaque match.">
+<meta name="description" content="Match avec un duo Valorant vérifié par rang en moins de 2 minutes. Récap automatique post-match prêt à partager. Beta privée — printemps 2026.">
 <meta property="og:title" content="squadly — duo Valorant non toxique en 2 min">
 <meta property="og:description" content="Vérifié par rang. Récap auto post-match. Bientôt en beta.">
 <meta property="og:type" content="website">
@@ -13,19 +13,30 @@
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%236B4EFF'/%3E%3Ccircle cx='22' cy='12' r='3' fill='%2300FF88'/%3E%3Ctext x='4' y='24' font-family='Inter Tight,sans-serif' font-weight='900' font-size='18' fill='%23F8F8FC'%3Es%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;700;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;700;800;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+<!-- Aurora background -->
+<div class="aurora" aria-hidden="true">
+  <div class="blob blob-a"></div>
+  <div class="blob blob-b"></div>
+  <div class="blob blob-c"></div>
+</div>
+
+<!-- Noise overlay for grain texture -->
+<div class="grain" aria-hidden="true"></div>
+
 <header class="nav">
   <a class="brand" href="/">
-    <span>squadly</span><i class="dot"></i>
+    <span class="brand-text">squadly</span><i class="dot"></i>
   </a>
   <nav class="nav-links">
-    <a href="#how">Comment ça marche</a>
+    <a href="#how">Comment</a>
+    <a href="#preview">Aperçu</a>
     <a href="#faq">FAQ</a>
-    <a href="#waitlist" class="btn btn-ghost">Rejoindre</a>
+    <a href="#waitlist" class="btn btn-ghost btn-sm">Rejoindre</a>
   </nav>
 </header>
 
@@ -33,62 +44,310 @@
 
   <!-- HERO -->
   <section class="hero">
-    <p class="kicker">Beta privée — printemps 2026</p>
-    <h1>Trouve ton duo Valorant<br/>en moins de <span class="hl">2 minutes</span>.</h1>
-    <p class="lede">Vérifié par rang. Pas de smurf. Pas de Discord à fouiller. Et en bonus, une carte récap automatique de votre meilleur moment, prête à partager.</p>
-    <a href="#waitlist" class="btn btn-primary">Rejoindre la waitlist</a>
-    <p class="micro">Gratuit. Aucune carte bancaire. Lance la beta avant tout le monde.</p>
+    <div class="kicker"><span class="pulse"></span> Beta privée — printemps 2026</div>
+
+    <h1 class="reveal">
+      <span>Trouve ton duo</span>
+      <span>Valorant en moins de</span>
+      <span class="hl">2 minutes<span class="period">.</span></span>
+    </h1>
+
+    <p class="lede reveal" data-delay="200">
+      Vérifié par rang. Pas de smurf. Pas de Discord à fouiller.<br/>
+      Et en bonus, une carte récap automatique de votre meilleur moment.
+    </p>
+
+    <div class="cta-row reveal" data-delay="400">
+      <a href="#waitlist" class="btn btn-primary btn-magnetic">
+        <span>Rejoindre la waitlist</span>
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a href="#preview" class="btn-ghost-text">Voir l'app <span class="arrow-down">↓</span></a>
+    </div>
+
+    <p class="micro reveal" data-delay="600">
+      Gratuit · Aucune carte bancaire · Lance la beta avant tout le monde
+    </p>
+
+    <!-- Phone mockup with animated swipe -->
+    <div class="hero-preview" id="preview" aria-hidden="true">
+      <div class="phone-shell" data-tilt>
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <div class="screen-status">
+            <span>9:41</span>
+            <span class="status-dots">●●●●</span>
+          </div>
+          <div class="screen-header">
+            <div class="screen-title">
+              <span class="screen-brand">squadly·</span>
+              <span class="screen-tag">Trouve un duo</span>
+            </div>
+            <div class="filter-chips">
+              <span class="chip chip-active">Diamond 2</span>
+              <span class="chip">Duelist</span>
+              <span class="chip">FR</span>
+            </div>
+          </div>
+
+          <div class="card-stack">
+            <article class="match-card mc-1">
+              <div class="card-top">
+                <div class="avatar" style="--c1:#FF6B9D;--c2:#9D6BFF;">A</div>
+                <div class="card-meta">
+                  <strong>Aksel·EUW</strong>
+                  <span class="rank">Diamond 2 · 70 RR</span>
+                </div>
+                <span class="online"></span>
+              </div>
+              <div class="agents">
+                <div class="agent-pill">Jett</div>
+                <div class="agent-pill">Raze</div>
+                <div class="agent-pill">Neon</div>
+              </div>
+              <div class="card-tags">
+                <span class="tag">🎙 Mic</span>
+                <span class="tag">🌙 Late night</span>
+                <span class="tag">🇫🇷 FR</span>
+              </div>
+              <div class="card-actions">
+                <button class="action action-skip">✕</button>
+                <button class="action action-match">⚡</button>
+              </div>
+            </article>
+
+            <article class="match-card mc-2">
+              <div class="card-top">
+                <div class="avatar" style="--c1:#00FF88;--c2:#00C2FF;">M</div>
+                <div class="card-meta">
+                  <strong>Maël·EUW</strong>
+                  <span class="rank">Diamond 2 · 35 RR</span>
+                </div>
+                <span class="online"></span>
+              </div>
+              <div class="agents">
+                <div class="agent-pill">Omen</div>
+                <div class="agent-pill">Brimstone</div>
+                <div class="agent-pill">Astra</div>
+              </div>
+              <div class="card-tags">
+                <span class="tag">🎙 Mic</span>
+                <span class="tag">😎 Chill</span>
+                <span class="tag">🇫🇷 FR</span>
+              </div>
+              <div class="card-actions">
+                <button class="action action-skip">✕</button>
+                <button class="action action-match">⚡</button>
+              </div>
+            </article>
+
+            <article class="match-card mc-3">
+              <div class="card-top">
+                <div class="avatar" style="--c1:#6B4EFF;--c2:#FF6B35;">S</div>
+                <div class="card-meta">
+                  <strong>Sora·EUW</strong>
+                  <span class="rank">Diamond 3 · 12 RR</span>
+                </div>
+                <span class="online"></span>
+              </div>
+              <div class="agents">
+                <div class="agent-pill">Killjoy</div>
+                <div class="agent-pill">Cypher</div>
+                <div class="agent-pill">Sage</div>
+              </div>
+              <div class="card-tags">
+                <span class="tag">🎙 Mic</span>
+                <span class="tag">🔥 Tryhard</span>
+                <span class="tag">🇫🇷 FR · 🇬🇧 EN</span>
+              </div>
+              <div class="card-actions">
+                <button class="action action-skip">✕</button>
+                <button class="action action-match">⚡</button>
+              </div>
+            </article>
+          </div>
+
+          <div class="match-banner">
+            <span class="dot-pulse"></span> Match trouvé · 47s
+          </div>
+        </div>
+      </div>
+
+      <!-- Floating ornaments around phone -->
+      <div class="float float-1">
+        <div class="float-card">
+          <span class="float-emoji">⚡</span>
+          <div>
+            <strong>Match en 47s</strong>
+            <small>Hier · 22:14</small>
+          </div>
+        </div>
+      </div>
+      <div class="float float-2">
+        <div class="float-card">
+          <span class="float-emoji">🏆</span>
+          <div>
+            <strong>13–4 sur Bind</strong>
+            <small>ACS 312 · 1.7 K/D</small>
+          </div>
+        </div>
+      </div>
+      <div class="float float-3">
+        <div class="float-card">
+          <span class="float-emoji">📸</span>
+          <div>
+            <strong>Recap prêt</strong>
+            <small>Partager TikTok →</small>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <!-- PAINS -->
-  <section class="pains">
-    <h2>Ce que tu connais déjà.</h2>
+  <!-- TICKER -->
+  <section class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <span class="ticker-item">⚡ Match · 30 sec</span>
+      <span class="ticker-item">·</span>
+      <span class="ticker-item">🛡 Rang vérifié Riot</span>
+      <span class="ticker-item">·</span>
+      <span class="ticker-item">🎙 Filtres mic / langue</span>
+      <span class="ticker-item">·</span>
+      <span class="ticker-item">📸 Recap auto post-match</span>
+      <span class="ticker-item">·</span>
+      <span class="ticker-item">🚫 Anti-smurf</span>
+      <span class="ticker-item">·</span>
+      <span class="ticker-item">📱 Mobile-first</span>
+      <span class="ticker-item">·</span>
+      <span class="ticker-item">⚡ Match · 30 sec</span>
+      <span class="ticker-item">·</span>
+      <span class="ticker-item">🛡 Rang vérifié Riot</span>
+      <span class="ticker-item">·</span>
+      <span class="ticker-item">🎙 Filtres mic / langue</span>
+      <span class="ticker-item">·</span>
+      <span class="ticker-item">📸 Recap auto post-match</span>
+      <span class="ticker-item">·</span>
+      <span class="ticker-item">🚫 Anti-smurf</span>
+      <span class="ticker-item">·</span>
+      <span class="ticker-item">📱 Mobile-first</span>
+    </div>
+  </section>
+
+  <!-- PAINS / Real Reddit quotes -->
+  <section class="pains scroll-section">
+    <div class="section-head">
+      <span class="eyebrow">Le constat</span>
+      <h2>Tu connais déjà ces frustrations.</h2>
+      <p>Citations réelles de joueurs. Aucun chiffre inventé.</p>
+    </div>
+
     <ul class="cards">
-      <li class="card">
-        <div class="emoji">😡</div>
-        <h3>Smurfs partout</h3>
-        <p>« Tu peux pas queue 5-stack sans tomber sur des smurfs 4 fois sur 5. » <em>— r/ValorantCompetitive, 2025</em></p>
+      <li class="card tilt" data-tilt>
+        <div class="card-emoji">😡</div>
+        <h3>Smurfs partout en ranked</h3>
+        <p class="quote">« Tu peux pas queue 5-stack sans tomber sur des smurfs 4 fois sur 5. »</p>
+        <cite>— r/ValorantCompetitive, 2025</cite>
       </li>
-      <li class="card">
-        <div class="emoji">🔇</div>
+      <li class="card tilt" data-tilt>
+        <div class="card-emoji">🔇</div>
         <h3>Coéquipiers sans micro</h3>
-        <p>Half ranked games avec des Iron qui jouent en Diamond et zéro communication.</p>
+        <p class="quote">« Half ranked games avec des Iron qui jouent en Diamond et zéro communication. »</p>
+        <cite>— Témoignage récurrent, r/VALORANT</cite>
       </li>
-      <li class="card">
-        <div class="emoji">😵‍💫</div>
-        <h3>Discord LFG insupportable</h3>
-        <p>1M de membres, mods hostiles, posts qui se perdent en 10 secondes.</p>
+      <li class="card tilt" data-tilt>
+        <div class="card-emoji">😵‍💫</div>
+        <h3>Discord LFG hostile</h3>
+        <p class="quote">« Discord mods are hopeless losers, they only have discord left in their lives. »</p>
+        <cite>— VLR.gg thread #349420</cite>
       </li>
     </ul>
   </section>
 
   <!-- HOW IT WORKS -->
-  <section class="how" id="how">
-    <h2>Comment ça marche.</h2>
+  <section class="how scroll-section" id="how">
+    <div class="section-head">
+      <span class="eyebrow">Comment ça marche</span>
+      <h2>3 étapes. <span class="hl-text">30 secondes</span> à la première.</h2>
+    </div>
     <ol class="steps">
-      <li>
-        <span class="num">1</span>
+      <li class="step">
+        <span class="num"><span>1</span></span>
         <h3>Connecte ton compte Riot</h3>
-        <p>Ton rang, tes agents préférés, ta région. Auto-vérifié — fini les menteurs.</p>
+        <p>Auth officielle Riot Sign-On. Ton rang, agents, région — récupérés directement. Fini les menteurs.</p>
+        <div class="step-icon">
+          <svg viewBox="0 0 64 64" width="64" height="64" fill="none" stroke="currentColor" stroke-width="2"><path d="M32 8L8 18v18c0 13 10 22 24 22s24-9 24-22V18L32 8z" stroke-linejoin="round"/><path d="M22 32l8 8 14-14" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
       </li>
-      <li>
-        <span class="num">2</span>
+      <li class="step">
+        <span class="num"><span>2</span></span>
         <h3>Swipe et match en 2 min</h3>
-        <p>Filtres précis : rang exact, rôle, langue, créneaux, vibe (chill/tryhard). Match accepté = vous êtes en lobby Valorant.</p>
+        <p>Filtres précis : rang exact, rôle, agents, langue, créneaux, vibe (chill / tryhard). Match accepté = lobby Valorant.</p>
+        <div class="step-icon">
+          <svg viewBox="0 0 64 64" width="64" height="64" fill="none" stroke="currentColor" stroke-width="2"><rect x="14" y="14" width="36" height="36" rx="6"/><path d="M22 32h20M32 22v20" stroke-linecap="round"/></svg>
+        </div>
       </li>
-      <li>
-        <span class="num">3</span>
-        <h3>Recap auto à la fin</h3>
-        <p>Carte de match avec vos clutchs, ACS, KDA. Prête à partager TikTok / Insta / Discord en un tap.</p>
+      <li class="step">
+        <span class="num"><span>3</span></span>
+        <h3>Recap auto après le match</h3>
+        <p>Carte 9:16 avec clutchs, ACS, KDA. Partage TikTok / Insta / Discord en un tap. Ramène ton duo en queue.</p>
+        <div class="step-icon">
+          <svg viewBox="0 0 64 64" width="64" height="64" fill="none" stroke="currentColor" stroke-width="2"><rect x="18" y="14" width="28" height="36" rx="4"/><path d="M26 26h12M26 32h12M26 38h8" stroke-linecap="round"/></svg>
+        </div>
       </li>
     </ol>
+    <svg class="steps-line" viewBox="0 0 800 4" preserveAspectRatio="none" aria-hidden="true">
+      <line x1="0" y1="2" x2="800" y2="2" stroke="url(#lg)" stroke-width="2" stroke-dasharray="6 6"/>
+      <defs><linearGradient id="lg" x1="0" x2="1"><stop offset="0" stop-color="#6B4EFF"/><stop offset="1" stop-color="#00FF88"/></linearGradient></defs>
+    </svg>
   </section>
 
-  <!-- WAITLIST FORM -->
-  <section class="waitlist" id="waitlist">
+  <!-- WHY US -->
+  <section class="why scroll-section">
+    <div class="section-head">
+      <span class="eyebrow">Pourquoi squadly</span>
+      <h2>Pensé pour les joueurs ranked,<br/>pas pour les casuals qui scrollent.</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-card">
+        <span class="why-icon">🛡️</span>
+        <h3>Rang vérifié, point.</h3>
+        <p>Connection Riot Sign-On officielle. Aucun champ libre où mentir. Si l'API dit Diamond 2, c'est Diamond 2.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-icon">🎯</span>
+        <h3>Filtres qui comptent</h3>
+        <p>Rang exact, rôle, agents préférés, langue, créneaux horaires, vibe. Pas de faux match.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-icon">📱</span>
+        <h3>Mobile-first, vraiment</h3>
+        <p>Tracker.gg fait du desktop. Discord fait du serveur. Squadly est pensé pour ton tel — entre deux games.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-icon">⚡</span>
+        <h3>Conforme Riot + Vanguard</h3>
+        <p>API officielle uniquement. Zéro lecture de mémoire. Compatible avec Vanguard. Pas de risque ban.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-icon">📸</span>
+        <h3>Recap card partageable</h3>
+        <p>Riot fait un Flashback par an. Squadly te donne une carte après chaque match. Pour TikTok, Insta, Discord.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-icon">🚫</span>
+        <h3>Anti-toxique, prouvable</h3>
+        <p>Système de réputation post-match. Profils signalés filtrés activement. Modération humaine sur les rapports.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WAITLIST -->
+  <section class="waitlist scroll-section" id="waitlist">
+    <div class="waitlist-glow"></div>
     <div class="form-wrap">
-      <h2>Rejoins la waitlist</h2>
-      <p>Les 500 premiers inscrits ont accès au beta privé + un badge fondateur permanent dans l'app.</p>
+      <span class="eyebrow">Beta privée</span>
+      <h2>Rejoins la waitlist.</h2>
+      <p>Les 500 premiers ont accès au beta privé + un badge fondateur permanent dans l'app.</p>
       <form id="signup" novalidate>
         <div class="row">
           <input type="email" name="email" required placeholder="ton.email@exemple.com" autocomplete="email">
@@ -103,6 +362,7 @@
             <option>Iron</option><option>Bronze</option><option>Silver</option>
             <option>Gold</option><option>Platinum</option><option>Diamond</option>
             <option>Ascendant</option><option>Immortal</option><option>Radiant</option>
+            <option>Unranked / I don't know</option>
           </select>
           <select name="region" required>
             <option value="">Ta région</option>
@@ -111,52 +371,75 @@
             <option>Korea</option><option>AP / SEA</option><option>Other</option>
           </select>
         </div>
-        <button type="submit" class="btn btn-primary btn-full">Je veux la beta</button>
-        <p class="micro success" id="msg-ok" hidden>Inscrit ! On t'envoie un mail dès que la beta s'ouvre.</p>
+        <button type="submit" class="btn btn-primary btn-full btn-magnetic">
+          <span>Je veux la beta</span>
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+        <p class="micro success" id="msg-ok" hidden>✓ Inscrit. On t'envoie un mail dès l'ouverture.</p>
         <p class="micro error" id="msg-err" hidden>Petit souci, réessaie ?</p>
       </form>
       <p class="micro mt">On ne spam jamais. Désinscription en un clic. Pas de pub revendue.</p>
     </div>
-    <aside class="counter">
-      <p class="big" id="counter">—</p>
-      <p>joueurs déjà inscrits</p>
-    </aside>
   </section>
 
   <!-- FAQ -->
-  <section class="faq" id="faq">
-    <h2>Questions fréquentes</h2>
+  <section class="faq scroll-section" id="faq">
+    <div class="section-head">
+      <span class="eyebrow">FAQ</span>
+      <h2>Les questions qu'on nous pose le plus.</h2>
+    </div>
     <details>
-      <summary>C'est gratuit ?</summary>
-      <p>Oui. La version qu'on lance en beta est entièrement gratuite. Plus tard, un tier Premium ($4,99/mois) ajoutera matchs illimités, filtres avancés et stats détaillées. Le coeur du produit reste gratuit.</p>
+      <summary><span>C'est gratuit ?</span><span class="chevron"></span></summary>
+      <p>Oui. La beta est entièrement gratuite. Plus tard, un tier Premium (≈ 4,99 €/mois) ajoutera matchs illimités, filtres avancés et stats détaillées. Le cœur du produit reste gratuit pour toujours.</p>
     </details>
     <details>
-      <summary>Comment vous vérifiez le rang ?</summary>
-      <p>Connection avec Riot Sign-On (OAuth officiel Riot). Aucun mot de passe stocké chez nous. Ton rang est récupéré directement depuis l'API Riot, donc zéro mensonge possible.</p>
+      <summary><span>Comment vous vérifiez le rang ?</span><span class="chevron"></span></summary>
+      <p>Connection avec Riot Sign-On (OAuth officiel Riot). Aucun mot de passe stocké chez nous. Ton rang est récupéré directement via l'API Riot. Zéro mensonge possible.</p>
     </details>
     <details>
-      <summary>C'est légal ? Riot va pas vous fermer ?</summary>
-      <p>Squadly est conforme à la politique Riot pour les apps tierces (« facilitate team-finding » et « post-match analysis » sont explicitement autorisés). On ne touche pas à la mémoire du jeu, on ne fait que de l'API officielle. Compatible avec Vanguard.</p>
+      <summary><span>C'est légal ? Riot va pas vous fermer ?</span><span class="chevron"></span></summary>
+      <p>Squadly suit la politique Riot pour apps tierces (« facilitate team-finding » et « post-match analysis » sont explicitement autorisés sur la doc Riot). On ne touche pas à la mémoire du jeu, on ne fait que de l'API officielle. Compatible avec Vanguard.</p>
     </details>
     <details>
-      <summary>Et si je joue à autre chose que Valorant ?</summary>
+      <summary><span>Et si je joue à autre chose que Valorant ?</span><span class="chevron"></span></summary>
       <p>On lance Valorant en premier. Helldivers 2 et ARC Raiders arrivent dans les phases suivantes. Inscris-toi à la waitlist, on demande ton autre jeu préféré dans le mail de bienvenue.</p>
     </details>
     <details>
-      <summary>Comment Squadly évite les toxiques ?</summary>
-      <p>Trois mesures : (1) Rang vérifié = fini les smurfs qui prétendent être Bronze. (2) Système de réputation post-match — les joueurs notent leurs duos. (3) Modération humaine sur les signalements. On ne promet pas 0% toxicité (qui pourrait?), mais on filtre activement les profils signalés.</p>
+      <summary><span>Comment squadly évite les toxiques ?</span><span class="chevron"></span></summary>
+      <p>Trois mesures : (1) Rang vérifié = fini les smurfs qui prétendent être Bronze. (2) Réputation post-match — les joueurs notent leurs duos. (3) Modération humaine sur les signalements. On ne promet pas 0 % toxicité (qui pourrait ?), mais on filtre activement les profils signalés.</p>
     </details>
     <details>
-      <summary>Vous êtes qui ?</summary>
+      <summary><span>Vous êtes qui ?</span><span class="chevron"></span></summary>
       <p>Une équipe indépendante de joueurs Valorant qui en a marre du LFG actuel. On construit en public — suis-nous sur TikTok et X pour voir l'app prendre forme.</p>
     </details>
+  </section>
+
+  <!-- BIG CTA -->
+  <section class="big-cta scroll-section">
+    <div class="big-cta-bg" aria-hidden="true"></div>
+    <h2>Lance la beta avant tout le monde.</h2>
+    <p>500 premiers inscrits = badge fondateur permanent + early access garanti.</p>
+    <a href="#waitlist" class="btn btn-primary btn-large btn-magnetic">
+      <span>Rejoindre la waitlist</span>
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
   </section>
 
 </main>
 
 <footer>
-  <p>© 2026 squadly · <a href="#">Privacy</a> · <a href="#">Terms</a> · <a href="#">Contact</a></p>
-  <p class="micro">squadly is not endorsed by Riot Games and does not reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games and all associated properties are trademarks or registered trademarks of Riot Games, Inc.</p>
+  <div class="footer-top">
+    <a class="brand" href="/"><span>squadly</span><i class="dot"></i></a>
+    <nav class="footer-nav">
+      <a href="#how">Comment</a>
+      <a href="#faq">FAQ</a>
+      <a href="#waitlist">Beta</a>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 squadly · construit avec frustration et trop de café</p>
+    <p class="micro">squadly is not endorsed by Riot Games and does not reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games and all associated properties are trademarks or registered trademarks of Riot Games, Inc.</p>
+  </div>
 </footer>
 
 <script src="script.js"></script>
