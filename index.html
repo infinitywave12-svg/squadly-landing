@@ -9,8 +9,8 @@
 <meta property="og:description" content="Vérifié par rang Riot. Récap auto post-match. Beta privée — printemps 2026.">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#06051A">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23FF1F6E'/%3E%3Ccircle cx='22' cy='12' r='3' fill='%23DAFF00'/%3E%3Ctext x='4' y='24' font-family='Inter Tight,sans-serif' font-weight='900' font-size='18' fill='white'%3Es%3C/text%3E%3C/svg%3E">
+<meta name="theme-color" content="#08090F">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23FF3D7F'/%3E%3Ccircle cx='22' cy='12' r='3' fill='%23DAFF00'/%3E%3Ctext x='4' y='24' font-family='Inter Tight,sans-serif' font-weight='900' font-size='18' fill='white'%3Es%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,700;0,800;0,900;1,800;1,900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
@@ -18,15 +18,12 @@
 </head>
 <body>
 
-<!-- Aurora -->
 <div class="aurora" aria-hidden="true">
   <div class="blob blob-a"></div>
   <div class="blob blob-b"></div>
-  <div class="blob blob-c"></div>
 </div>
 <div class="grain" aria-hidden="true"></div>
 
-<!-- NAV -->
 <header class="nav">
   <a class="brand" href="/">
     <span class="brand-text">squadly</span><i class="dot"></i>
@@ -34,7 +31,6 @@
   <nav class="nav-links">
     <a href="#constat">Constat</a>
     <a href="#how">Comment</a>
-    <a href="#api">API</a>
     <a href="#faq">FAQ</a>
     <a href="#waitlist" class="btn btn-ghost btn-sm">Beta</a>
   </nav>
@@ -42,259 +38,183 @@
 
 <main>
 
-  <!-- HERO BENTO -->
+  <!-- HERO -->
   <section class="hero">
-    <div class="bento">
-      <!-- TITLE TILE -->
-      <div class="bento-title tile">
-        <div class="tile-tag">
-          <span class="pulse"></span> BETA · PRINTEMPS 26
-        </div>
-        <h1>
-          <span class="line"><em>Ranked</em> sans les</span>
-          <span class="line"><span class="strike">toxiques</span> <span class="hl">déchets</span><span class="period">.</span></span>
-        </h1>
-        <p class="hero-sub">
-          Trouve un duo Valorant <strong>vérifié par rang</strong> en moins de 2 minutes.
-          Repars avec une carte récap auto.
-        </p>
-        <div class="cta-row">
-          <a href="#waitlist" class="btn btn-primary btn-magnetic">
-            <span>Je veux la beta</span>
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </a>
-          <a href="#how" class="btn-ghost-text">Comment ça marche <span class="arrow-down">↓</span></a>
-        </div>
+    <div class="hero-text">
+      <div class="kicker">
+        <span class="pulse"></span> Beta privée · printemps 2026
       </div>
+      <h1>
+        <span class="line"><em>Ranked</em> sans</span>
+        <span class="line">les <span class="strike">toxiques</span></span>
+        <span class="line"><span class="hl">déchets</span><span class="period">.</span></span>
+      </h1>
+      <p class="hero-sub">
+        Trouve un duo Valorant <strong>vérifié par rang</strong> en moins de
+        2 minutes. Repars avec une carte récap auto.
+      </p>
+      <div class="cta-row">
+        <a href="#waitlist" class="btn btn-primary btn-magnetic">
+          <span>Je veux la beta</span>
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a href="#how" class="btn-ghost-text">Comment ça marche <span class="arrow-down">↓</span></a>
+      </div>
+      <ul class="hero-meta">
+        <li><span class="dot-mini"></span> Conforme Riot + Vanguard</li>
+        <li><span class="dot-mini"></span> Aucune carte bancaire</li>
+        <li><span class="dot-mini"></span> Désinscription un clic</li>
+      </ul>
+    </div>
 
-      <!-- PHONE TILE -->
-      <div class="bento-phone tile">
-        <div class="phone-shell" data-tilt>
-          <div class="phone-notch"></div>
-          <div class="phone-screen">
-            <div class="screen-status">
-              <span>9:41</span>
-              <span class="status-dots">●●●●</span>
+    <div class="hero-phone">
+      <div class="phone-shell" data-tilt>
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <div class="screen-status">
+            <span>9:41</span>
+            <span class="status-dots">●●●●</span>
+          </div>
+          <div class="screen-header">
+            <div class="screen-title">
+              <span class="screen-brand">squadly</span>
+              <span class="screen-tag">Trouve un duo · Diamond 2</span>
             </div>
-            <div class="screen-header">
-              <div class="screen-title">
-                <span class="screen-brand">squadly</span>
-                <span class="screen-tag">Trouve un duo · Diamond 2</span>
-              </div>
-              <div class="filter-chips">
-                <span class="chip chip-active">Diamond 2</span>
-                <span class="chip">Duelist</span>
-                <span class="chip">FR · 22h-2h</span>
-              </div>
-            </div>
-
-            <div class="card-stack">
-              <article class="match-card mc-1">
-                <div class="card-top">
-                  <div class="avatar" style="--c1:#FF1F6E;--c2:#FF6BAA;">A</div>
-                  <div class="card-meta">
-                    <strong>Aksel·EUW</strong>
-                    <span class="rank">DIAMOND 2 · 70 RR</span>
-                  </div>
-                  <span class="online"></span>
-                </div>
-                <div class="agents">
-                  <div class="agent-pill">Jett</div>
-                  <div class="agent-pill">Raze</div>
-                  <div class="agent-pill">Neon</div>
-                </div>
-                <div class="card-tags">
-                  <span class="tag">🎙 Mic</span>
-                  <span class="tag">🌙 Late</span>
-                  <span class="tag">🇫🇷 FR</span>
-                </div>
-                <div class="card-actions">
-                  <button class="action action-skip">✕</button>
-                  <button class="action action-match">⚡</button>
-                </div>
-              </article>
-
-              <article class="match-card mc-2">
-                <div class="card-top">
-                  <div class="avatar" style="--c1:#DAFF00;--c2:#9DFF50;">M</div>
-                  <div class="card-meta">
-                    <strong>Maël·EUW</strong>
-                    <span class="rank">DIAMOND 2 · 35 RR</span>
-                  </div>
-                  <span class="online"></span>
-                </div>
-                <div class="agents">
-                  <div class="agent-pill">Omen</div>
-                  <div class="agent-pill">Brim</div>
-                  <div class="agent-pill">Astra</div>
-                </div>
-                <div class="card-tags">
-                  <span class="tag">🎙 Mic</span>
-                  <span class="tag">😎 Chill</span>
-                  <span class="tag">🇫🇷 FR</span>
-                </div>
-                <div class="card-actions">
-                  <button class="action action-skip">✕</button>
-                  <button class="action action-match">⚡</button>
-                </div>
-              </article>
-
-              <article class="match-card mc-3">
-                <div class="card-top">
-                  <div class="avatar" style="--c1:#4D9EFF;--c2:#9DC8FF;">S</div>
-                  <div class="card-meta">
-                    <strong>Sora·EUW</strong>
-                    <span class="rank">DIAMOND 3 · 12 RR</span>
-                  </div>
-                  <span class="online"></span>
-                </div>
-                <div class="agents">
-                  <div class="agent-pill">Killjoy</div>
-                  <div class="agent-pill">Cypher</div>
-                  <div class="agent-pill">Sage</div>
-                </div>
-                <div class="card-tags">
-                  <span class="tag">🎙 Mic</span>
-                  <span class="tag">🔥 Tryhard</span>
-                  <span class="tag">🇫🇷·🇬🇧</span>
-                </div>
-                <div class="card-actions">
-                  <button class="action action-skip">✕</button>
-                  <button class="action action-match">⚡</button>
-                </div>
-              </article>
+            <div class="filter-chips">
+              <span class="chip chip-active">Diamond 2</span>
+              <span class="chip">Duelist</span>
+              <span class="chip">FR · 22h-2h</span>
             </div>
           </div>
+
+          <div class="card-stack">
+            <article class="match-card mc-1">
+              <div class="card-top">
+                <div class="avatar" style="--c1:#FF3D7F;--c2:#FF7AAA;">A</div>
+                <div class="card-meta">
+                  <strong>Aksel·EUW</strong>
+                  <span class="rank">DIAMOND 2 · 70 RR</span>
+                </div>
+                <span class="online"></span>
+              </div>
+              <div class="agents">
+                <div class="agent-pill">Jett</div>
+                <div class="agent-pill">Raze</div>
+                <div class="agent-pill">Neon</div>
+              </div>
+              <div class="card-tags">
+                <span class="tag">🎙 Mic</span>
+                <span class="tag">🌙 Late</span>
+                <span class="tag">🇫🇷 FR</span>
+              </div>
+              <div class="card-actions">
+                <button class="action action-skip">✕</button>
+                <button class="action action-match">⚡</button>
+              </div>
+            </article>
+
+            <article class="match-card mc-2">
+              <div class="card-top">
+                <div class="avatar" style="--c1:#6B7DFF;--c2:#9DA8FF;">M</div>
+                <div class="card-meta">
+                  <strong>Maël·EUW</strong>
+                  <span class="rank">DIAMOND 2 · 35 RR</span>
+                </div>
+                <span class="online"></span>
+              </div>
+              <div class="agents">
+                <div class="agent-pill">Omen</div>
+                <div class="agent-pill">Brim</div>
+                <div class="agent-pill">Astra</div>
+              </div>
+              <div class="card-tags">
+                <span class="tag">🎙 Mic</span>
+                <span class="tag">😎 Chill</span>
+                <span class="tag">🇫🇷 FR</span>
+              </div>
+              <div class="card-actions">
+                <button class="action action-skip">✕</button>
+                <button class="action action-match">⚡</button>
+              </div>
+            </article>
+
+            <article class="match-card mc-3">
+              <div class="card-top">
+                <div class="avatar" style="--c1:#FFB347;--c2:#FFD08B;">S</div>
+                <div class="card-meta">
+                  <strong>Sora·EUW</strong>
+                  <span class="rank">DIAMOND 3 · 12 RR</span>
+                </div>
+                <span class="online"></span>
+              </div>
+              <div class="agents">
+                <div class="agent-pill">Killjoy</div>
+                <div class="agent-pill">Cypher</div>
+                <div class="agent-pill">Sage</div>
+              </div>
+              <div class="card-tags">
+                <span class="tag">🎙 Mic</span>
+                <span class="tag">🔥 Tryhard</span>
+                <span class="tag">🇫🇷·🇬🇧</span>
+              </div>
+              <div class="card-actions">
+                <button class="action action-skip">✕</button>
+                <button class="action action-match">⚡</button>
+              </div>
+            </article>
+          </div>
         </div>
-
-        <!-- Stickers around phone -->
-        <span class="sticker sticker-1">VÉRIFIÉ&nbsp;<i>RIOT</i></span>
-        <span class="sticker sticker-2">NO&nbsp;SMURF</span>
-        <span class="sticker sticker-3">★ FREE BETA</span>
-      </div>
-
-      <!-- TIMER TILE -->
-      <div class="bento-timer tile tile-pink">
-        <div class="tile-num" id="match-clock">01:47</div>
-        <div class="tile-label">temps moyen pour <em>matcher</em></div>
-      </div>
-
-      <!-- STAT TILE 1 -->
-      <div class="bento-stat tile tile-yellow">
-        <span class="tile-icon">🛡️</span>
-        <div>
-          <strong>Rang vérifié</strong>
-          <small>via Riot Sign-On officiel</small>
-        </div>
-      </div>
-
-      <!-- STAT TILE 2 -->
-      <div class="bento-stat-2 tile tile-blue">
-        <span class="tile-icon">📸</span>
-        <div>
-          <strong>Recap auto</strong>
-          <small>partage TikTok en 1 tap</small>
-        </div>
-      </div>
-
-      <!-- BIG QUOTE TILE -->
-      <div class="bento-quote tile">
-        <p>« Tu peux pas queue 5-stack sans tomber sur des smurfs <em>4 fois sur 5</em>. »</p>
-        <cite>r/ValorantCompetitive · 2025</cite>
       </div>
     </div>
   </section>
 
-  <!-- MARQUEE DIVIDER -->
+  <!-- TICKER QUIET -->
   <section class="marquee" aria-hidden="true">
     <div class="marquee-track">
-      <span><em>Ranked-first</em></span><span class="dot-sep">●</span>
-      <span>API officielle Riot</span><span class="dot-sep">●</span>
-      <span class="hl-mar">CONFORME VANGUARD</span><span class="dot-sep">●</span>
-      <span><em>Aucun chiffre inventé</em></span><span class="dot-sep">●</span>
-      <span>Mobile-first</span><span class="dot-sep">●</span>
-      <span class="hl-mar">PAS DE BOTS</span><span class="dot-sep">●</span>
-      <span><em>Ranked-first</em></span><span class="dot-sep">●</span>
-      <span>API officielle Riot</span><span class="dot-sep">●</span>
-      <span class="hl-mar">CONFORME VANGUARD</span><span class="dot-sep">●</span>
-      <span><em>Aucun chiffre inventé</em></span><span class="dot-sep">●</span>
-      <span>Mobile-first</span><span class="dot-sep">●</span>
-      <span class="hl-mar">PAS DE BOTS</span>
+      <span>Vérifié par rang Riot</span><span class="dot-sep">·</span>
+      <span>Match en 2 minutes</span><span class="dot-sep">·</span>
+      <span>Recap auto post-match</span><span class="dot-sep">·</span>
+      <span>Conforme Vanguard</span><span class="dot-sep">·</span>
+      <span>Mobile-first</span><span class="dot-sep">·</span>
+      <span>Anti-smurf</span><span class="dot-sep">·</span>
+      <span>Vérifié par rang Riot</span><span class="dot-sep">·</span>
+      <span>Match en 2 minutes</span><span class="dot-sep">·</span>
+      <span>Recap auto post-match</span><span class="dot-sep">·</span>
+      <span>Conforme Vanguard</span><span class="dot-sep">·</span>
+      <span>Mobile-first</span><span class="dot-sep">·</span>
+      <span>Anti-smurf</span>
     </div>
   </section>
 
-  <!-- LE CONSTAT — magazine numbered -->
+  <!-- LE CONSTAT -->
   <section class="constat scroll-section" id="constat">
     <div class="section-head left">
-      <span class="eyebrow">Le constat · 2026</span>
+      <span class="eyebrow">Le constat</span>
       <h2>Tu connais <em>déjà</em><br/>ces frustrations.</h2>
-      <p>Citations vérifiées de joueurs. <strong>Aucun chiffre inventé.</strong></p>
+      <p>Citations vérifiées de joueurs ranked. Aucun chiffre inventé.</p>
     </div>
 
     <div class="constat-grid">
       <article class="num-card">
-        <div class="num-head">
-          <span class="num-tag">01</span>
-          <span class="rotate-stamp">⚠ smurf</span>
-        </div>
-        <h3>Smurfs partout en ranked.</h3>
+        <span class="num-tag">01</span>
+        <h3>Smurfs partout en ranked</h3>
         <p class="quote">« Tu peux pas queue 5-stack sans tomber sur des smurfs 4 fois sur 5. »</p>
         <cite>r/ValorantCompetitive · 2025</cite>
       </article>
 
       <article class="num-card">
-        <div class="num-head">
-          <span class="num-tag">02</span>
-          <span class="rotate-stamp">🔇 silence</span>
-        </div>
-        <h3>Coéquipiers sans micro.</h3>
+        <span class="num-tag">02</span>
+        <h3>Coéquipiers sans micro</h3>
         <p class="quote">« Half ranked games avec des Iron qui jouent en Diamond et zéro communication. »</p>
         <cite>r/VALORANT · témoignage récurrent</cite>
       </article>
 
       <article class="num-card">
-        <div class="num-head">
-          <span class="num-tag">03</span>
-          <span class="rotate-stamp">😵‍💫 mods</span>
-        </div>
-        <h3>Discord LFG hostile.</h3>
+        <span class="num-tag">03</span>
+        <h3>Discord LFG hostile</h3>
         <p class="quote">« Discord mods are hopeless losers, they only have discord left in their lives. »</p>
         <cite>VLR.gg · thread #349420</cite>
       </article>
-    </div>
-  </section>
-
-  <!-- API TERMINAL -->
-  <section class="api-block scroll-section" id="api">
-    <div class="api-head">
-      <span class="eyebrow">Sous le capot</span>
-      <h2>API officielle Riot.<br/><em>Zéro hack.</em> Zéro risque.</h2>
-      <p>Squadly utilise <strong>VAL-MATCH-V1</strong> et <strong>RSO</strong> — les endpoints officiels que Riot autorise pour le team-finding et l'analyse post-match.</p>
-    </div>
-    <div class="terminal" data-typed>
-      <div class="term-bar">
-        <i class="dot-r"></i><i class="dot-y"></i><i class="dot-g"></i>
-        <span class="term-title">~ riot-rso · curl</span>
-      </div>
-      <pre class="term-body"><span class="cmd">$ curl -H "X-Riot-Token: $TOKEN" \
-   "https://eu.api.riotgames.com/val/match/v1/matchlists/by-puuid/$PUUID"</span>
-
-<span class="ok">→ 200 OK</span>
-<span class="kv"><span class="k">"puuid"</span>: <span class="s">"d-5xT…U2"</span>,
-<span class="k">"history"</span>: [
-  { <span class="k">"matchId"</span>: <span class="s">"45a6…b7"</span>, <span class="k">"queue"</span>: <span class="s">"competitive"</span> },
-  { <span class="k">"matchId"</span>: <span class="s">"23f1…d4"</span>, <span class="k">"queue"</span>: <span class="s">"competitive"</span> },
-  ...
-]</span>
-
-<span class="cmt"># &gt; squadly récupère le rang vérifié → fini les menteurs.</span>
-<span class="cmt"># &gt; squadly génère la recap card du dernier match → partage 1-tap.</span></pre>
-    </div>
-    <div class="api-stickers">
-      <span class="api-badge">VAL-MATCH-V1</span>
-      <span class="api-badge alt">VAL-RANKED-V1</span>
-      <span class="api-badge alt2">RSO OAuth 2.0</span>
-      <span class="api-badge">VANGUARD-OK</span>
     </div>
   </section>
 
@@ -306,66 +226,56 @@
     </div>
     <ol class="steps">
       <li class="step">
-        <span class="num"><span>01</span></span>
-        <h3>Connecte ton compte Riot.</h3>
+        <span class="num">01</span>
+        <h3>Connecte ton compte Riot</h3>
         <p>Auth officielle Riot Sign-On. Ton rang, agents, région — récupérés directement. Fini les menteurs.</p>
       </li>
       <li class="step">
-        <span class="num"><span>02</span></span>
-        <h3>Swipe et match en 2 min.</h3>
+        <span class="num">02</span>
+        <h3>Swipe et match en 2 min</h3>
         <p>Filtres précis : rang exact, rôle, agents, langue, créneaux, vibe (chill / tryhard). Match accepté = lobby Valorant.</p>
       </li>
       <li class="step">
-        <span class="num"><span>03</span></span>
-        <h3>Recap auto après le match.</h3>
+        <span class="num">03</span>
+        <h3>Recap auto après le match</h3>
         <p>Carte 9:16 avec clutchs, ACS, KDA. Partage TikTok / Insta / Discord en un tap. Ramène ton duo en queue.</p>
       </li>
     </ol>
   </section>
 
-  <!-- WHY US -->
+  <!-- WHY -->
   <section class="why scroll-section">
     <div class="section-head left">
       <span class="eyebrow">Pourquoi squadly</span>
-      <h2>Pensé <em>pour les ranked grinders.</em><br/>Pas pour les casuals qui scrollent.</h2>
+      <h2>Pensé pour les <em>ranked grinders</em>.<br/>Pas pour les casuals qui scrollent.</h2>
     </div>
-    <div class="why-bento">
-      <div class="why-card big">
+    <div class="why-grid">
+      <div class="why-card">
         <span class="why-icon">🛡️</span>
         <h3>Rang vérifié, point.</h3>
         <p>Connection Riot Sign-On officielle. Aucun champ libre où mentir. Si l'API dit Diamond 2, c'est Diamond 2.</p>
       </div>
       <div class="why-card">
-        <span class="why-icon">🎯</span>
-        <h3>Filtres qui comptent</h3>
-        <p>Rang exact, rôle, agents, langue, créneaux, vibe.</p>
-      </div>
-      <div class="why-card alt">
         <span class="why-icon">📱</span>
         <h3>Mobile-first, vraiment</h3>
-        <p>Tracker desktop. Discord serveur. Squadly = ton tel.</p>
+        <p>Tracker fait du desktop. Discord du serveur. Squadly est pensé pour ton tel — entre deux games.</p>
       </div>
-      <div class="why-card alt2">
-        <span class="why-icon">⚡</span>
-        <h3>Conforme Riot + Vanguard</h3>
-        <p>API officielle uniquement. Zéro lecture mémoire.</p>
-      </div>
-      <div class="why-card big alt">
+      <div class="why-card">
         <span class="why-icon">📸</span>
         <h3>Recap card partageable</h3>
         <p>Riot fait un Flashback par an. Squadly te donne une carte après chaque match. Pour TikTok, Insta, Discord — en un tap.</p>
       </div>
-      <div class="why-card alt2">
-        <span class="why-icon">🚫</span>
-        <h3>Anti-toxique</h3>
-        <p>Réputation post-match. Profils signalés filtrés.</p>
+      <div class="why-card">
+        <span class="why-icon">⚡</span>
+        <h3>Conforme Riot + Vanguard</h3>
+        <p>API officielle uniquement. Zéro lecture mémoire. Compatible avec Vanguard. Pas de risque ban.</p>
       </div>
     </div>
   </section>
 
   <!-- WAITLIST -->
   <section class="waitlist scroll-section" id="waitlist">
-    <div class="waitlist-glow"></div>
+    <div class="waitlist-glow" aria-hidden="true"></div>
     <div class="form-wrap">
       <span class="eyebrow">Beta privée</span>
       <h2>Rejoins la <em>waitlist</em>.</h2>
@@ -395,7 +305,7 @@
         </div>
         <button type="submit" class="btn btn-primary btn-full btn-magnetic">
           <span>Je veux la beta</span>
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </button>
         <p class="micro success" id="msg-ok" hidden>✓ Inscrit. On t'envoie un mail dès l'ouverture.</p>
         <p class="micro error" id="msg-err" hidden>Petit souci, réessaie ?</p>
@@ -440,11 +350,11 @@
   <section class="big-cta scroll-section">
     <div class="big-cta-bg" aria-hidden="true"></div>
     <span class="eyebrow">Maintenant ou jamais</span>
-    <h2>500 places.<br/><span class="hl">Badge fondateur</span> permanent.</h2>
+    <h2>500 places.<br/>Badge fondateur <em>permanent</em>.</h2>
     <p>Lance la beta avant tout le monde. Aucune carte bancaire. Désinscription un clic.</p>
     <a href="#waitlist" class="btn btn-primary btn-large btn-magnetic">
       <span>Je veux la beta</span>
-      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
     </a>
   </section>
 
@@ -455,7 +365,6 @@
     <a class="brand" href="/"><span>squadly</span><i class="dot"></i></a>
     <nav class="footer-nav">
       <a href="#how">Comment</a>
-      <a href="#api">API</a>
       <a href="#faq">FAQ</a>
       <a href="#waitlist">Beta</a>
     </nav>
