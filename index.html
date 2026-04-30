@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>squadly — trouve ton duo Valorant en 2 min, vérifié par rang</title>
+<meta name="description" content="Marre des coéquipiers toxiques en ranked ? Squadly te match avec un duo vérifié, à ton rang, sous 2 minutes. Récap automatique de votre meilleur moment après chaque match.">
+<meta property="og:title" content="squadly — duo Valorant non toxique en 2 min">
+<meta property="og:description" content="Vérifié par rang. Récap auto post-match. Bientôt en beta.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0F0F1B">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%236B4EFF'/%3E%3Ccircle cx='22' cy='12' r='3' fill='%2300FF88'/%3E%3Ctext x='4' y='24' font-family='Inter Tight,sans-serif' font-weight='900' font-size='18' fill='%23F8F8FC'%3Es%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;700;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="nav">
+  <a class="brand" href="/">
+    <span>squadly</span><i class="dot"></i>
+  </a>
+  <nav class="nav-links">
+    <a href="#how">Comment ça marche</a>
+    <a href="#faq">FAQ</a>
+    <a href="#waitlist" class="btn btn-ghost">Rejoindre</a>
+  </nav>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero">
+    <p class="kicker">Beta privée — printemps 2026</p>
+    <h1>Trouve ton duo Valorant<br/>en moins de <span class="hl">2 minutes</span>.</h1>
+    <p class="lede">Vérifié par rang. Pas de smurf. Pas de Discord à fouiller. Et en bonus, une carte récap automatique de votre meilleur moment, prête à partager.</p>
+    <a href="#waitlist" class="btn btn-primary">Rejoindre la waitlist</a>
+    <p class="micro">Gratuit. Aucune carte bancaire. Lance la beta avant tout le monde.</p>
+  </section>
+
+  <!-- PAINS -->
+  <section class="pains">
+    <h2>Ce que tu connais déjà.</h2>
+    <ul class="cards">
+      <li class="card">
+        <div class="emoji">😡</div>
+        <h3>Smurfs partout</h3>
+        <p>« Tu peux pas queue 5-stack sans tomber sur des smurfs 4 fois sur 5. » <em>— r/ValorantCompetitive, 2025</em></p>
+      </li>
+      <li class="card">
+        <div class="emoji">🔇</div>
+        <h3>Coéquipiers sans micro</h3>
+        <p>Half ranked games avec des Iron qui jouent en Diamond et zéro communication.</p>
+      </li>
+      <li class="card">
+        <div class="emoji">😵‍💫</div>
+        <h3>Discord LFG insupportable</h3>
+        <p>1M de membres, mods hostiles, posts qui se perdent en 10 secondes.</p>
+      </li>
+    </ul>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how" id="how">
+    <h2>Comment ça marche.</h2>
+    <ol class="steps">
+      <li>
+        <span class="num">1</span>
+        <h3>Connecte ton compte Riot</h3>
+        <p>Ton rang, tes agents préférés, ta région. Auto-vérifié — fini les menteurs.</p>
+      </li>
+      <li>
+        <span class="num">2</span>
+        <h3>Swipe et match en 2 min</h3>
+        <p>Filtres précis : rang exact, rôle, langue, créneaux, vibe (chill/tryhard). Match accepté = vous êtes en lobby Valorant.</p>
+      </li>
+      <li>
+        <span class="num">3</span>
+        <h3>Recap auto à la fin</h3>
+        <p>Carte de match avec vos clutchs, ACS, KDA. Prête à partager TikTok / Insta / Discord en un tap.</p>
+      </li>
+    </ol>
+  </section>
+
+  <!-- WAITLIST FORM -->
+  <section class="waitlist" id="waitlist">
+    <div class="form-wrap">
+      <h2>Rejoins la waitlist</h2>
+      <p>Les 500 premiers inscrits ont accès au beta privé + un badge fondateur permanent dans l'app.</p>
+      <form id="signup" novalidate>
+        <div class="row">
+          <input type="email" name="email" required placeholder="ton.email@exemple.com" autocomplete="email">
+        </div>
+        <div class="row two">
+          <input type="text" name="riotId" placeholder="Riot ID (ex: Phoenix)" autocomplete="off">
+          <input type="text" name="tagline" placeholder="#TAG (ex: EUW)" autocomplete="off">
+        </div>
+        <div class="row two">
+          <select name="rank" required>
+            <option value="">Ton rang actuel</option>
+            <option>Iron</option><option>Bronze</option><option>Silver</option>
+            <option>Gold</option><option>Platinum</option><option>Diamond</option>
+            <option>Ascendant</option><option>Immortal</option><option>Radiant</option>
+          </select>
+          <select name="region" required>
+            <option value="">Ta région</option>
+            <option>EU West</option><option>EU East</option>
+            <option>NA</option><option>Brazil</option><option>LATAM</option>
+            <option>Korea</option><option>AP / SEA</option><option>Other</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary btn-full">Je veux la beta</button>
+        <p class="micro success" id="msg-ok" hidden>Inscrit ! On t'envoie un mail dès que la beta s'ouvre.</p>
+        <p class="micro error" id="msg-err" hidden>Petit souci, réessaie ?</p>
+      </form>
+      <p class="micro mt">On ne spam jamais. Désinscription en un clic. Pas de pub revendue.</p>
+    </div>
+    <aside class="counter">
+      <p class="big" id="counter">—</p>
+      <p>joueurs déjà inscrits</p>
+    </aside>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq" id="faq">
+    <h2>Questions fréquentes</h2>
+    <details>
+      <summary>C'est gratuit ?</summary>
+      <p>Oui. La version qu'on lance en beta est entièrement gratuite. Plus tard, un tier Premium ($4,99/mois) ajoutera matchs illimités, filtres avancés et stats détaillées. Le coeur du produit reste gratuit.</p>
+    </details>
+    <details>
+      <summary>Comment vous vérifiez le rang ?</summary>
+      <p>Connection avec Riot Sign-On (OAuth officiel Riot). Aucun mot de passe stocké chez nous. Ton rang est récupéré directement depuis l'API Riot, donc zéro mensonge possible.</p>
+    </details>
+    <details>
+      <summary>C'est légal ? Riot va pas vous fermer ?</summary>
+      <p>Squadly est conforme à la politique Riot pour les apps tierces (« facilitate team-finding » et « post-match analysis » sont explicitement autorisés). On ne touche pas à la mémoire du jeu, on ne fait que de l'API officielle. Compatible avec Vanguard.</p>
+    </details>
+    <details>
+      <summary>Et si je joue à autre chose que Valorant ?</summary>
+      <p>On lance Valorant en premier. Helldivers 2 et ARC Raiders arrivent dans les phases suivantes. Inscris-toi à la waitlist, on demande ton autre jeu préféré dans le mail de bienvenue.</p>
+    </details>
+    <details>
+      <summary>Comment Squadly évite les toxiques ?</summary>
+      <p>Trois mesures : (1) Rang vérifié = fini les smurfs qui prétendent être Bronze. (2) Système de réputation post-match — les joueurs notent leurs duos. (3) Modération humaine sur les signalements. On ne promet pas 0% toxicité (qui pourrait?), mais on filtre activement les profils signalés.</p>
+    </details>
+    <details>
+      <summary>Vous êtes qui ?</summary>
+      <p>Une équipe indépendante de joueurs Valorant qui en a marre du LFG actuel. On construit en public — suis-nous sur TikTok et X pour voir l'app prendre forme.</p>
+    </details>
+  </section>
+
+</main>
+
+<footer>
+  <p>© 2026 squadly · <a href="#">Privacy</a> · <a href="#">Terms</a> · <a href="#">Contact</a></p>
+  <p class="micro">squadly is not endorsed by Riot Games and does not reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games and all associated properties are trademarks or registered trademarks of Riot Games, Inc.</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
