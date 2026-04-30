@@ -1,40 +1,28 @@
-// squadly — landing page interactions
+// squadly — landing v3 interactions
 
-// ============================================================
-// CONFIG
-// ============================================================
-const WAITLIST_ENDPOINT = ""; // À brancher Beehiiv quand prêt
+const WAITLIST_ENDPOINT = "";
 const COUNTER_KEY = "squadly_signup_count_local";
 
-// ============================================================
-// REVEAL ON SCROLL (IntersectionObserver)
-// ============================================================
-const reveal = (selector, threshold = 0.15) => {
+// =========================================================
+// REVEAL ON SCROLL
+// =========================================================
+const reveal = (selector, threshold = 0.1) => {
   const items = document.querySelectorAll(selector);
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
-        const delay = e.target.dataset.delay || 0;
-        setTimeout(() => e.target.classList.add("is-visible"), parseInt(delay));
+        e.target.classList.add("is-visible");
         io.unobserve(e.target);
       }
     });
   }, { threshold });
   items.forEach(el => io.observe(el));
 };
-reveal(".reveal", 0.05);
 reveal(".scroll-section", 0.08);
 
-// Hero reveals always trigger on load (above the fold)
-window.addEventListener("DOMContentLoaded", () => {
-  document.querySelectorAll(".hero .reveal").forEach((el, i) => {
-    setTimeout(() => el.classList.add("is-visible"), 80 * (i + 1));
-  });
-});
-
-// ============================================================
-// NAV SCROLL STATE
-// ============================================================
+// =========================================================
+// NAV SCROLL
+// =========================================================
 const nav = document.querySelector(".nav");
 const onScroll = () => {
   if (window.scrollY > 20) nav.classList.add("scrolled");
@@ -43,9 +31,9 @@ const onScroll = () => {
 window.addEventListener("scroll", onScroll, { passive: true });
 onScroll();
 
-// ============================================================
-// MAGNETIC BUTTONS (subtle pull toward cursor)
-// ============================================================
+// =========================================================
+// MAGNETIC BUTTONS
+// =========================================================
 document.querySelectorAll(".btn-magnetic").forEach(btn => {
   let rafId = null;
   btn.addEventListener("mousemove", (e) => {
@@ -64,11 +52,11 @@ document.querySelectorAll(".btn-magnetic").forEach(btn => {
   });
 });
 
-// ============================================================
-// 3D TILT on hover (cards + phone)
-// ============================================================
+// =========================================================
+// 3D TILT (phone)
+// =========================================================
 document.querySelectorAll("[data-tilt]").forEach(el => {
-  const max = el.classList.contains("phone-shell") ? 6 : 9;
+  const max = 6;
   let rafId = null;
   el.addEventListener("mousemove", (e) => {
     const r = el.getBoundingClientRect();
@@ -78,11 +66,8 @@ document.querySelectorAll("[data-tilt]").forEach(el => {
     const ry = ((px - 0.5) * 2 * max).toFixed(2);
     if (rafId) cancelAnimationFrame(rafId);
     rafId = requestAnimationFrame(() => {
-      const baseRy = el.classList.contains("phone-shell") ? -3 : 0;
-      const baseRx = el.classList.contains("phone-shell") ? 4 : 0;
-      el.style.transform = `perspective(1200px) rotateX(${baseRx + rx}deg) rotateY(${baseRy + ry * 1}deg)`;
-      el.style.setProperty("--mx", `${px * 100}%`);
-      el.style.setProperty("--my", `${py * 100}%`);
+      const baseRy = -3, baseRx = 4;
+      el.style.transform = `perspective(1200px) rotateX(${baseRx + parseFloat(rx)}deg) rotateY(${baseRy + parseFloat(ry)}deg)`;
     });
   });
   el.addEventListener("mouseleave", () => {
@@ -90,9 +75,9 @@ document.querySelectorAll("[data-tilt]").forEach(el => {
   });
 });
 
-// ============================================================
-// SMOOTH SCROLL fallback
-// ============================================================
+// =========================================================
+// SMOOTH SCROLL
+// =========================================================
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener("click", e => {
     const id = a.getAttribute("href");
@@ -106,9 +91,28 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 });
 
-// ============================================================
+// =========================================================
+// MATCH CLOCK — animate the timer tile (01:47 ± few seconds)
+// =========================================================
+const clockEl = document.getElementById("match-clock");
+if (clockEl) {
+  const baseSec = 1 * 60 + 47; // 01:47
+  let t = 0;
+  const tick = () => {
+    // gentle oscillation between 01:32 and 02:14
+    const v = baseSec + Math.round(15 * Math.sin(t / 18));
+    const m = Math.floor(v / 60);
+    const s = v % 60;
+    clockEl.textContent = `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+    t++;
+    setTimeout(tick, 1200);
+  };
+  tick();
+}
+
+// =========================================================
 // WAITLIST FORM
-// ============================================================
+// =========================================================
 const form = document.getElementById("signup");
 const msgOk = document.getElementById("msg-ok");
 const msgErr = document.getElementById("msg-err");
@@ -142,7 +146,6 @@ if (form) {
         });
         if (!res.ok) throw new Error("Server error");
       } else {
-        // Mode dev — log local. À remplacer en prod.
         console.log("[squadly] Signup payload (no backend configured):", payload);
         await new Promise(r => setTimeout(r, 600));
       }
@@ -156,7 +159,6 @@ if (form) {
       msgOk.hidden = false;
       form.reset();
       btnSpan.textContent = "✓ Inscrit";
-      // Confetti vibe — light particle burst
       burst(btn);
 
       setTimeout(() => { btn.disabled = false; btnSpan.textContent = originalText; }, 3500);
@@ -170,39 +172,40 @@ if (form) {
   });
 }
 
-// ============================================================
-// MICRO PARTICLE BURST on signup success
-// ============================================================
+// =========================================================
+// PARTICLE BURST
+// =========================================================
 function burst(anchor) {
   const r = anchor.getBoundingClientRect();
   const cx = r.left + r.width / 2;
   const cy = r.top + r.height / 2;
-  const colors = ["#6B4EFF", "#00FF88", "#FF6B9D", "#B19CFF"];
-  for (let i = 0; i < 18; i++) {
+  const colors = ["#FF1F6E", "#DAFF00", "#4D9EFF", "#F8F4ED"];
+  for (let i = 0; i < 22; i++) {
     const p = document.createElement("div");
     p.style.cssText = `
       position: fixed; top: ${cy}px; left: ${cx}px;
-      width: 8px; height: 8px;
+      width: 9px; height: 9px;
       background: ${colors[i % colors.length]};
       border-radius: 50%;
       pointer-events: none;
       z-index: 9999;
-      transition: transform 1s cubic-bezier(0.2, 0.7, 0.3, 1), opacity 1s;
+      transition: transform 1.1s cubic-bezier(0.2, 0.7, 0.3, 1), opacity 1.1s;
+      box-shadow: 0 0 12px ${colors[i % colors.length]};
     `;
     document.body.appendChild(p);
     requestAnimationFrame(() => {
-      const angle = (Math.PI * 2 * i) / 18 + Math.random() * 0.5;
-      const dist = 70 + Math.random() * 80;
+      const angle = (Math.PI * 2 * i) / 22 + Math.random() * 0.5;
+      const dist = 90 + Math.random() * 100;
       p.style.transform = `translate(${Math.cos(angle) * dist}px, ${Math.sin(angle) * dist}px) scale(0.2)`;
       p.style.opacity = "0";
     });
-    setTimeout(() => p.remove(), 1200);
+    setTimeout(() => p.remove(), 1300);
   }
 }
 
-// ============================================================
-// SUBTLE PARALLAX on aurora blobs (mouse-based)
-// ============================================================
+// =========================================================
+// AURORA PARALLAX
+// =========================================================
 const blobs = document.querySelectorAll(".blob");
 let mouseX = 0, mouseY = 0;
 let targetX = 0, targetY = 0;
@@ -221,4 +224,4 @@ function tick() {
 }
 if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) tick();
 
-console.log("[squadly] Landing chargée. Branche WAITLIST_ENDPOINT et PostHog avant prod.");
+console.log("[squadly] v3 chargée.");
